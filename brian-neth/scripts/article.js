@@ -8,21 +8,19 @@ let articles = [];
 function Article (rawDataObj) {
   // TODO:[DONE] Use the JS object that is passed in to complete this constructor function:
   // Save ALL the properties of `rawDataObj` into `this`
-  console.log("start of article constructor");
   this.title = rawDataObj.title;
   this.category = rawDataObj.category;
   this.author = rawDataObj.author;
   this.authorUrl = rawDataObj.authorUrl;
   this.publishedOn = rawDataObj.publishedOn;
   this.body = rawDataObj.body;
-  console.log("end of article constructor");
 }
 
 Article.prototype.toHtml = function() {
   // COMMENT: What is the benefit of cloning the article? (see the jQuery docs)
   // PUT YOUR RESPONSE HERE
 
-  let $newArticle = $('article.template').clone();
+  let $newArticle = $('article.template:first').clone();
   /* TODO: [DONE] This cloned article still has a class of template. In our modules.css stylesheet, we should give all elements with a class of template a display of none so that our template does not display in the browser[D]. But, we also need to make sure we're not accidentally hiding our cloned article[D]. */
 
   if (!this.publishedOn) $newArticle.addClass('draft');
@@ -35,18 +33,17 @@ Article.prototype.toHtml = function() {
       3. article title,
       4. article body, and
       5. publication date. */
-  console.log("start of publish");
+  console.log('start of publish');
   $newArticle.find('a').text(this.author);
-  $newArticle.find('a').attr("href", this.authorUrl);
+  $newArticle.find('a').attr('href', this.authorUrl);
   $newArticle.find('h1').text(this.title);
-  $newArticle.children("section").text(this.body);
-  $newArticle.find('time').attr("datetime", this.pulishedOn);
-  debugger;
+  $newArticle.children('section').html(this.body);
+  $newArticle.find('time').attr('datetime', this.pulishedOn);
   // REVIEW: Display the date as a relative number of 'days ago'
   $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
   $newArticle.append('<hr>');
   console.log($newArticle);
-  
+  debugger;
   return $newArticle;
 };
 
@@ -59,9 +56,11 @@ rawData.sort(function(a,b) {
 
 for(let i = 0; i < rawData.length; i++) {
   articles.push(new Article(rawData[i]));
-  console.log("new article", i);
 }
 
+console.log(articles.length);
+
 for(let i = 0; i < articles.length; i++) {
+  console.log(articles.length, i);
   $('#articles').append(articles[i].toHtml());
 }

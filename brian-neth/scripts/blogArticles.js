@@ -1,7 +1,7 @@
 'use strict';
 
 // COMMENT: How is this data utilized within our blog app? What is the structure of this data (your response should include the terms "object", "array", and "key/value pairs")?
-// PUT YOUR RESPONSE HERE
+// This data is an array of article objects with 6 key/value pairs. This data will be turned into blog entries in article.js via DOM manipulation.
 
 let rawData = [
   {
